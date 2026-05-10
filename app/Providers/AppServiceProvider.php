@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(CartServiceInterface::class, CartService::class);
+       //
     }
 
     /**
