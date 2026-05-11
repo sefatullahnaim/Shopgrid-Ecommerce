@@ -26,7 +26,7 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
 
     // Add to cart
-    Route::post('/add/{product}', [CartController::class, 'add'])->name('add');
+    Route::post('/add/{product}', [CartController::class, 'addTocart'])->name('add');
 
     // Update cart item
     Route::put('/update/{item}', [CartController::class, 'update'])->name('update');
