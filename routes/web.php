@@ -29,10 +29,10 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('/add/{product}', [CartController::class, 'addTocart'])->name('add');
 
     // Update cart item
-    Route::put('/update/{item}', [CartController::class, 'update'])->name('update');
+    Route::put('/update/{item}', [CartController::class, 'updateCart'])->name('update');
 
     // Remove from cart
-    Route::delete('/remove/{item}', [CartController::class, 'remove'])->name('remove');
+    Route::get('/remove/{item}', [CartController::class, 'removeCart'])->name('remove');
 
     // Clear cart
     Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
@@ -43,7 +43,9 @@ Route::prefix('cart')->name('cart.')->group(function () {
     // Remove coupon
     Route::delete('/coupon/remove', [CartController::class, 'removeCoupon'])->name('remove-coupon');
 });
-Route::get('/product/checkout', [CheckoutController::class, 'checkout'])->name('product.checkout');
+Route::get('/product/checkout', [CheckoutController::class, 'index'])->name('product.checkout');
+Route::post('/checkout/new-order', [CheckoutController::class, 'newOrder'])->name('checkout.new.order');
+Route::get('/checkout/complete-order', [CheckoutController::class, 'completeOrder'])->name('checkout.complete.order');
 
 Route::get('/user/login', [CustomerAuthController::class, 'login'])->name('user.login');
 Route::get('/user/register', [CustomerAuthController::class, 'register'])->name('user.register');

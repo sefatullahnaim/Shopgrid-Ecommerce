@@ -110,7 +110,7 @@
                                     <div class="col-lg-4 col-md-4 col-12">
                                         <div class="form-group quantity">
                                             <label for="color">Quantity</label>
-                                            <input type="number" class="form-control" name="quantity" value="1"
+                                            <input type="number" class="form-control" name="qty" value="1"
                                                 min="1" required />
                                         </div>
                                     </div>

@@ -15,19 +15,26 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-       //
+        //
     }
 
     /**
      * Bootstrap any application services.
      */
     public function boot(): void
-{
-    View::composer(
-        ['website.master', 'website.home.index'], // ✅ array
-        function ($view) {
-            $view->with('categories', Category::with('subCategories')->get());
-        }
-    );
-}
+    {
+        View::composer(
+            ['website.master', 'website.home.index'], // ✅ array
+            function ($view) {
+                $view->with(
+                    'categories',
+                    Category::where('status', 1)
+                        ->with(['subCategories' => function ($query) {
+                            $query->where('status', 1);
+                        }])
+                        ->get()
+                );
+            }
+        );
+    }
 }
