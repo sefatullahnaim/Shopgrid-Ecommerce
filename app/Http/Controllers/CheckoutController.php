@@ -67,7 +67,7 @@ class CheckoutController extends Controller
                 Cart::remove($item->rowId);
             }
 
-            return redirect('/checkout/complete-order')->with('message', "Your order info post successfully. Please wait, we will contact with you soon.");
+            return redirect('/checkout/complete-order')->with('message', "Your order placed successfully. Please wait, we will contact with you soon.");
         }
         elseif ($request->payment_method == 'online')
         {

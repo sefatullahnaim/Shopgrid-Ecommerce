@@ -74,18 +74,29 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-12">
                             <div class="top-end">
-                                <div class="user">
-                                    <i class="lni lni-user"></i>
-                                    Hello
-                                </div>
-                                <ul class="user-login">
-                                    <li>
-                                        <a href="{{ route('user.login') }}">Sign In</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('user.register') }}">Register</a>
-                                    </li>
-                                </ul>
+                                @if (Session::get('customer_id'))
+                                    <div class="user">
+                                        <i class="lni lni-user"></i>
+                                        Hello {{ Session::get('customer_name') }}
+                                    </div>
+                                    <ul class="user-login">
+                                        <li>
+                                            <a href="{{ route('customer.dashboard') }}">Dashboard</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('customer.logout') }}">Logout</a>
+                                        </li>
+                                    </ul>
+                                @else
+                                    <ul class="user-login">
+                                        <li>
+                                            <a href="{{ route('customer.login') }}">Sign In</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('customer.register') }}">Register</a>
+                                        </li>
+                                    </ul>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -148,52 +159,43 @@
                                     <div class="cart-items">
                                         <a href="javascript:void(0)" class="main-btn">
                                             <i class="lni lni-cart"></i>
-                                            <span class="total-items">2</span>
+                                            <span class="total-items">{{ count(Cart::content()) }}</span>
                                         </a>
 
                                         <div class="shopping-item">
                                             <div class="dropdown-cart-header">
-                                                <span>2 Items</span>
+                                                <span>{{ count(Cart::content()) }} Items</span>
                                                 <a href="{{ route('cart.index') }}">View Cart</a>
                                             </div>
                                             <ul class="shopping-list">
-                                                <li>
-                                                    <a href="javascript:void(0)" class="remove"
-                                                        title="Remove this item"><i class="lni lni-close"></i></a>
-                                                    <div class="cart-img-head">
-                                                        <a class="cart-img" href="product-details.html"><img
-                                                                src="{{ asset('/') }}assets/images/header/cart-items/item1.jpg"
-                                                                alt="#"></a>
-                                                    </div>
-                                                    <div class="content">
-                                                        <h4><a href="product-details.html">
-                                                                Apple Watch Series 6</a></h4>
-                                                        <p class="quantity">1x - <span class="amount">$99.00</span>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="remove"
-                                                        title="Remove this item"><i class="lni lni-close"></i></a>
-                                                    <div class="cart-img-head">
-                                                        <a class="cart-img" href="product-details.html"><img
-                                                                src="{{ asset('/') }}assets/images/header/cart-items/item2.jpg"
-                                                                alt="#"></a>
-                                                    </div>
-                                                    <div class="content">
-                                                        <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
-                                                        <p class="quantity">1x - <span class="amount">$35.00</span>
-                                                        </p>
-                                                    </div>
-                                                </li>
+                                                @foreach (Cart::content() as $item)
+                                                    <li>
+                                                        <a href="{{ route('cart.remove', ['item' => $item->rowId]) }}"
+                                                            class="remove" title="Remove this item"><i
+                                                                class="lni lni-close"></i></a>
+                                                        <div class="cart-img-head">
+                                                            <a class="cart-img" href="#"><img
+                                                                    src="{{ asset('storage/' . $item->options->image) }}"
+                                                                    alt="#"></a>
+                                                        </div>
+                                                        <div class="content">
+                                                            <h4><a href="#">
+                                                                    {{ $item->name }}</a></h4>
+                                                            <p class="quantity">{{ $item->qty }} x
+                                                                {{ $item->price }} = <span class="amount">
+                                                                    {{ $item->qty * $item->price }} </span></p>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
                                             </ul>
                                             <div class="bottom">
                                                 <div class="total">
                                                     <span>Total</span>
-                                                    <span class="total-amount">$134.00</span>
+                                                    <span class="total-amount">{{ Cart::total() }}</span>
                                                 </div>
                                                 <div class="button">
-                                                    <a href="checkout.html" class="btn animate">Checkout</a>
+                                                    <a href="{{ route('product.checkout') }}"
+                                                        class="btn animate">Checkout</a>
                                                 </div>
                                             </div>
                                         </div>

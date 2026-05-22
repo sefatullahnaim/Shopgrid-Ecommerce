@@ -121,31 +121,6 @@
                                             <span id="totalPay">{{ $sum + $tax + $shippingCost }} Tk</span>
                                         </li>
                                     </ul>
-
-                                    <script>
-                                        const subtotal = {{ $sum }};
-                                        const tax = {{ $tax }};
-
-                                        const shippingRadios = document.querySelectorAll('input[name="shipping_cost"]');
-                                        const totalPay = document.getElementById('totalPay');
-                                        const shippingLabel = document.getElementById('shippingLabel');
-
-                                        shippingRadios.forEach(radio => {
-                                            radio.addEventListener('change', function() {
-
-                                                let shipping = parseInt(this.value);
-                                                let label = this.dataset.label;
-
-                                                let total = subtotal + tax + shipping;
-
-                                                // Update shipping label
-                                                shippingLabel.innerHTML = `${label} (${shipping} Tk)`;
-
-                                                // Update total instantly
-                                                totalPay.innerHTML = `${total} Tk`;
-                                            });
-                                        });
-                                    </script>
                                     <div class="button">
                                         <a href="{{ route('product.checkout') }}" class="btn">Checkout</a>
                                         <a href="" class="btn btn-alt">Continue shopping</a>
