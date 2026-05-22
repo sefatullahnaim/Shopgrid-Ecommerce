@@ -4,7 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class order extends Model
+class Order extends Model
 {
-    //
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function orderDetail()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
 }

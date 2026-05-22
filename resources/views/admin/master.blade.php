@@ -1180,7 +1180,7 @@
                                     <span class="side-menu__label">Order Module</span><i
                                         class="angle fa fa-angle-right"></i></a>
                                 <ul class="slide-menu">
-                                    <li><a href="maps1.html" class="slide-item">Manage Orders</a></li>
+                                    <li><a href="{{ route('admin.all.order') }}" class="slide-item">Manage Orders</a></li>
                                 </ul>
                             </li>
                             <li class="slide">

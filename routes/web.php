@@ -16,6 +16,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CourierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SslCommerzPaymentController;
+use App\Http\Controllers\AdminOrderController;
 
 Route::get('/', [ShopGridController::class, 'index'])->name('home');
 Route::get('/product-category/{id}', [ShopGridController::class, 'categories'])->name('product.categories');
@@ -132,4 +133,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/admin/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/admin/users/{id}', [UserController::class, 'destroy'])->name('users.delete');
+
+    Route::get('/all-order', [AdminOrderController::class, 'index'])->name('admin.all.order');
+    Route::get('/order-detail/{id}', [AdminOrderController::class, 'detail'])->name('admin.order.detail');
+    Route::get('/order-edit/{id}', [AdminOrderController::class, 'edit'])->name('admin.order.edit');
+    Route::post('/order-update/{id}', [AdminOrderController::class, 'updateOrder'])->name('admin.order.update');
+    Route::get('/order-invoice/{id}', [AdminOrderController::class, 'invoice'])->name('admin.order.invoice');
+    Route::get('/order-invoice-download/{id}', [AdminOrderController::class, 'downloadInvoice'])->name('admin.order.invoice.download');
+    Route::get('/order-delete/{id}', [AdminOrderController::class, 'deleteOrder'])->name('admin.order.delete');
 });
