@@ -68,6 +68,14 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
 
+Route::middleware(['customer'])->group(function () {
+    Route::get('/customer-dashboard', [CustomerController::class, 'index'])->name('customer.dashboard');
+    Route::get('/customer-profile', [CustomerController::class, 'profile'])->name('customer.profile');
+    Route::get('/customer-order', [CustomerController::class, 'order'])->name('customer.order');
+    Route::get('/customer-change-password', [CustomerController::class, 'changePassword'])->name('customer.change.password');
+    Route::get('/customer-logout', [CustomerController::class, 'logout'])->name('customer.logout');
+});
+
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
